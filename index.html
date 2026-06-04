@@ -209,50 +209,15 @@
 
             <div id="form-container" class="bg-white p-8 md:p-10 rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.04)] border border-gray-50">
                 
-                <!-- 隱藏的 iframe 用於接收表單提交而不會跳轉頁面 -->
-                <script>
-                    let submitted = false;
-                    function handleFormSubmit() {
-                        if (submitted) {
-                            document.getElementById('form-container').style.display = 'none';
-                            document.getElementById('success-message').style.display = 'block';
-                            // 滾動到成功訊息
-                            window.scrollTo({ top: document.getElementById('rsvp').offsetTop - 100, behavior: 'smooth' });
-                        }
-                    }
-                </script>
-                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="handleFormSubmit()"></iframe>
+                <!-- 隱藏的 iframe 用於無感接收表單提交 -->
+                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
-                <!-- Google 表單對接，並加入表單提交前的欄位清洗腳本 -->
-                <script>
-                    function handleFormSubmitCleaning() {
-                        submitted = true;
-                        
-                        // 鎖定送出按鈕避免重複發送
-                        const btn = document.getElementById('submit-btn');
-                        btn.innerHTML = '傳送中... SENDING';
-                        btn.disabled = true;
-
-                        // 判斷是否選擇了「其他：」單選按鈕
-                        const otherRadio = document.getElementById('attendance_other_radio');
-                        const otherInput = document.getElementById('attendance_other_input');
-                        
-                        // 如果未選擇「其他：」，則動態移除 name 屬性，避免將空參數 BBB 傳送給 Google
-                        if (!otherRadio.checked) {
-                            otherInput.removeAttribute('name');
-                        } else {
-                            otherInput.setAttribute('name', 'entry.1653406339.other_option_response');
-                        }
-                    }
-                </script>
-
-                <form action="https://docs.google.com/forms/d/e/1FAIpQLSfvXaBdN9V-RXb601EkZkaIYB02mibcqLig8cf-DVigx5Vmiw/formResponse"
+                <form id="weddingForm" action="https://docs.google.com/forms/d/e/1FAIpQLSfvXaBdN9V-RXb601EkZkaIYB02mibcqLig8cf-DVigx5Vmiw/formResponse"
                       method="POST"
                       target="hidden_iframe"
-                      onsubmit="handleFormSubmitCleaning();"
                       class="space-y-6">
 
-                    <!-- 1. 姓名 (中英雙語標籤，且完全清空 AAAA) -->
+                    <!-- 1. 姓名 (中英雙語標籤) -->
                     <div>
                         <label class="block mb-2">
                             <span class="text-base font-medium tracking-widest text-gray-700">姓名 <span class="text-morandi-sand">*</span></span>
@@ -292,7 +257,7 @@
                                 <span class="text-gray-700 text-base whitespace-nowrap">其他：</span>
                                 <input type="text" id="attendance_other_input" name="entry.1653406339.other_option_response"
                                        onclick="document.getElementById('attendance_other_radio').checked = true;"
-                                       class="flex-1 px-3 py-2 bg-white border border-gray-200 rounded-md text-base focus:outline-none focus:ring-1 focus:ring-morandi-sage animate-pulse focus:animate-none"
+                                       class="flex-1 px-3 py-2 bg-white border border-gray-200 rounded-md text-base focus:outline-none focus:ring-1 focus:ring-morandi-sage transition-colors"
                                        placeholder="請輸入其他狀況">
                             </label>
                         </div>
@@ -331,8 +296,9 @@
         <p class="eng-font text-sm text-gray-400 tracking-[0.3em] uppercase">C & L Wedding . 2026</p>
     </footer>
 
-    <!-- 計時器腳本 -->
+    <!-- 計時器與全新防錯傳送腳本 -->
     <script>
+        // 1. 倒數計時腳本
         const weddingDate = new Date('2026-07-19T10:00:00').getTime();
         const timer = setInterval(function() {
             const now = new Date().getTime();
@@ -351,6 +317,51 @@
             document.getElementById('cd-minutes').innerText = String(minutes).padStart(2, '0');
             document.getElementById('cd-seconds').innerText = String(seconds).padStart(2, '0');
         }, 1000);
+
+        // 2. 表單安全傳送邏輯 (防 Google 400 報錯)
+        const form = document.getElementById('weddingForm');
+        const submitBtn = document.getElementById('submit-btn');
+        const iframe = document.getElementById('hidden_iframe');
+        let isSubmitted = false;
+
+        form.addEventListener('submit', function(e) {
+            // 先攔截表單的原生發送行為，讓我們能先「清洗」資料
+            e.preventDefault(); 
+            
+            const otherRadio = document.getElementById('attendance_other_radio');
+            const otherInput = document.getElementById('attendance_other_input');
+            
+            // 關鍵防呆判斷
+            if (!otherRadio.checked) {
+                // 如果賓客選了「準時出席」或「無法出席」，就徹底拔除其他輸入框的 name，避免傳送空值給 Google
+                otherInput.removeAttribute('name');
+            } else {
+                // 如果選了「其他」，確保它有 name 屬性能成功傳送
+                otherInput.setAttribute('name', 'entry.1653406339.other_option_response');
+                // 如果賓客勾了「其他」卻忘記打字，自動補上預設文字以免報錯
+                if (otherInput.value.trim() === '') {
+                    otherInput.value = '其他狀況';
+                }
+            }
+
+            // 更新按鈕視覺，防止賓客重複連點
+            isSubmitted = true;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '傳送中... <span class="eng-font ml-2 text-base">SENDING</span>';
+
+            // 清洗完畢，正式指揮表單送出！
+            form.submit();
+        });
+
+        // 3. 監聽 Iframe，顯示絕美感謝畫面
+        iframe.onload = function() {
+            if (isSubmitted) {
+                document.getElementById('form-container').style.display = 'none';
+                document.getElementById('success-message').style.display = 'block';
+                // 平滑滾動到感謝訊息
+                window.scrollTo({ top: document.getElementById('rsvp').offsetTop - 100, behavior: 'smooth' });
+            }
+        };
     </script>
 </body>
 </html>
