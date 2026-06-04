@@ -8,7 +8,7 @@
     <!-- 引入字體：Cormorant Garamond (英/數) & Noto Serif TC -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://docs.google.com/forms/d/e/1FAIpQLSfvXaBdN9V-RXb601EkZkaIYB02mibcqLig8cf-DVigx5Vmiw/formResponse?usp=pp_url&entry.739707933=NameTest&entry.1653406339=__other_option__&entry.1653406339.other_option_response=bbb&entry.309738085=11&entry.635026613=MessageTest11">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Serif+TC:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <!-- 引入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -318,39 +318,21 @@
             document.getElementById('cd-seconds').innerText = String(seconds).padStart(2, '0');
         }, 1000);
 
-        // 2. 表單安全傳送邏輯 (防 Google 400 報錯)
+        // 2. 表單安全傳送邏輯 (最原始的純 HTML 發送，100% 繞過阻擋)
         const form = document.getElementById('weddingForm');
         const submitBtn = document.getElementById('submit-btn');
         const iframe = document.getElementById('hidden_iframe');
         let isSubmitted = false;
 
-        form.addEventListener('submit', function(e) {
-            // 先攔截表單的原生發送行為，讓我們能先「清洗」資料
-            e.preventDefault(); 
-            
-            const otherRadio = document.getElementById('attendance_other_radio');
-            const otherInput = document.getElementById('attendance_other_input');
-            
-            // 關鍵防呆判斷
-            if (!otherRadio.checked) {
-                // 如果賓客選了「準時出席」或「無法出席」，就徹底拔除其他輸入框的 name，避免傳送空值給 Google
-                otherInput.removeAttribute('name');
-            } else {
-                // 如果選了「其他」，確保它有 name 屬性能成功傳送
-                otherInput.setAttribute('name', 'entry.1653406339.other_option_response');
-                // 如果賓客勾了「其他」卻忘記打字，自動補上預設文字以免報錯
-                if (otherInput.value.trim() === '') {
-                    otherInput.value = '其他狀況';
-                }
-            }
-
-            // 更新按鈕視覺，防止賓客重複連點
+        form.addEventListener('submit', function() {
+            // 注意：這裡絕對不使用 e.preventDefault()，讓瀏覽器自然發出最標準的 POST 請求
             isSubmitted = true;
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '傳送中... <span class="eng-font ml-2 text-base">SENDING</span>';
-
-            // 清洗完畢，正式指揮表單送出！
-            form.submit();
+            
+            // 延遲 10 毫秒鎖定按鈕，確保瀏覽器已經把資料送出去了
+            setTimeout(() => {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '傳送中... <span class="eng-font ml-2 text-base">SENDING</span>';
+            }, 10);
         });
 
         // 3. 監聽 Iframe，顯示絕美感謝畫面
