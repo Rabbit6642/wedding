@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>陳主昱 & 李筱涵 婚禮邀請函</title>
     
-    <!-- 引入字體：Cormorant Garamond (英/數) & Noto Serif TC (中) -->
+    <!-- 引入字體：Cormorant Garamond (英/數) & Noto Serif TC -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Noto+Serif+TC:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -28,6 +28,7 @@
                     fontFamily: {
                         'serif-tc': ['"Noto Serif TC"', 'serif'],
                         'eng': ['"Cormorant Garamond"', 'serif'],
+                        'handwriting': ['"ChenYuluoyan"', '"Noto Serif TC"', 'serif']
                     },
                     boxShadow: {
                         'glow': '0 0 20px rgba(255, 255, 255, 0.9), 0 4px 15px rgba(0, 0, 0, 0.05)',
@@ -38,8 +39,24 @@
     </script>
 
     <style>
-        body { font-family: 'Noto Serif TC', serif; background-color: #fbfaf8; color: #4a4a4a; }
-        .eng-font { font-family: 'Cormorant Garamond', serif; }
+        /* 載入開源手寫字體「辰宇落雁體 2.0」 */
+        @font-face {
+            font-family: 'ChenYuluoyan';
+            src: url('https://cdn.jsdelivr.net/gh/Chenyu-otf/chenyuluoyan_thin@main/ChenYuluoyan-2.0-Thin.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* 套用手寫字體至全局，除了專屬英文數字 class */
+        body, input, select, textarea, button, h1, h2, h3, p, span, label {
+            font-family: 'ChenYuluoyan', 'Noto Serif TC', serif !important;
+            letter-spacing: 0.05em;
+        }
+        
+        .eng-font {
+            font-family: 'Cormorant Garamond', serif !important;
+        }
         
         /* 毛玻璃導航列 */
         .glass-nav {
@@ -60,16 +77,16 @@
     <!-- 導航列 (玻璃透視感) -->
     <nav class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
         <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-xl font-medium tracking-[0.2em] text-morandi-sage eng-font">
+            <div class="text-2xl font-medium tracking-[0.2em] text-morandi-sage eng-font">
                 C & L
             </div>
-            <div class="space-x-6 text-sm tracking-widest text-gray-600 hidden md:flex">
+            <div class="space-x-8 text-lg tracking-widest text-gray-600 hidden md:flex">
                 <a href="#about" class="hover:text-morandi-sand transition-colors">關於我們</a>
                 <a href="#details" class="hover:text-morandi-sand transition-colors">婚禮詳情</a>
                 <a href="#rsvp" class="hover:text-morandi-sand transition-colors">出席回函</a>
             </div>
-            <!-- 手機版選單圖示 (簡易版) -->
-            <div class="md:hidden text-morandi-sage flex space-x-4 text-xs tracking-widest">
+            <!-- 手機版選單圖示 -->
+            <div class="md:hidden text-morandi-sage flex space-x-4 text-sm tracking-widest">
                 <a href="#details">詳情</a>
                 <a href="#rsvp">回函</a>
             </div>
@@ -80,18 +97,18 @@
     <header class="relative w-full h-screen flex flex-col justify-center items-center overflow-hidden">
         <!-- 背景圖與遮罩 -->
         <div class="absolute inset-0 z-0">
-            <img src="https://i.postimg.cc/zvRjpLQN/S-194240544.jpg" alt="Wedding Cover" class="w-full h-full object-cover object-center scale-105 animate-[pulse_20s_ease-in-out_infinite_alternate]" />
+            <img src="https://i.postimg.cc/zvRjpLQN/S-194240544.jpg" alt="Wedding Cover" class="w-full h-full object-cover object-center scale-105" />
             <!-- 漸層遮罩讓文字清晰 -->
             <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-morandi-bg"></div>
         </div>
 
         <!-- 封面文字內容 -->
         <div class="relative z-10 text-center px-4 mt-20">
-            <h2 class="eng-font text-2xl md:text-3xl tracking-[0.3em] text-white/90 mb-6 uppercase">Save the Date</h2>
-            <h1 class="text-5xl md:text-7xl font-semibold tracking-widest text-white mb-8 drop-shadow-md">
-                陳主昱 <span class="eng-font text-4xl mx-2 text-morandi-sand">&</span> 李筱涵
+            <h2 class="eng-font text-2xl md:text-3xl tracking-[0.3em] text-white/90 mb-4 uppercase">Save the Date</h2>
+            <h1 class="text-6xl md:text-8xl font-medium tracking-widest text-white mb-6 drop-shadow-md">
+                陳主昱 <span class="eng-font text-5xl mx-2 text-morandi-sand">&</span> 李筱涵
             </h1>
-            <p class="text-lg md:text-xl tracking-[0.2em] text-white/90 font-light drop-shadow-sm">
+            <p class="eng-font text-2xl md:text-3xl tracking-[0.2em] text-white/90 font-light drop-shadow-sm">
                 2026 . 07 . 19
             </p>
         </div>
@@ -101,7 +118,7 @@
     <section id="about" class="py-24 px-6 bg-morandi-bg text-center">
         <div class="max-w-3xl mx-auto">
             <svg class="w-8 h-8 mx-auto text-morandi-sand opacity-60 mb-8" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
-            <h3 class="text-2xl md:text-3xl font-medium tracking-widest leading-relaxed text-gray-700">
+            <h3 class="text-3xl md:text-4xl font-medium tracking-widest leading-relaxed text-gray-700">
                 「我屬我的良人，<br class="md:hidden">我的良人也屬我。」
             </h3>
         </div>
@@ -114,42 +131,42 @@
         
         <div class="max-w-4xl mx-auto px-4 flex flex-wrap justify-center gap-4 md:gap-6">
             <!-- 天數卡片 -->
-            <div class="bg-white shadow-glow rounded-2xl px-5 py-4 flex items-center border border-white/60">
-                <span class="eng-font text-4xl md:text-5xl text-morandi-sand font-medium" id="cd-days">00</span>
+            <div class="bg-white shadow-glow rounded-2xl px-6 py-4 flex items-center border border-white/60">
+                <span class="eng-font text-5xl md:text-6xl text-morandi-sand font-medium" id="cd-days">00</span>
                 <div class="w-[1px] h-10 bg-gradient-to-b from-transparent via-gray-300 to-transparent mx-4"></div>
                 <div class="flex flex-col items-start">
-                    <span class="text-xs tracking-widest text-gray-400">天</span>
-                    <span class="eng-font text-sm text-morandi-sage tracking-[0.2em] uppercase">Days</span>
+                    <span class="text-sm tracking-widest text-gray-400">天</span>
+                    <span class="eng-font text-xs text-morandi-sage tracking-[0.1em] uppercase">Days</span>
                 </div>
             </div>
 
             <!-- 小時卡片 -->
-            <div class="bg-white shadow-glow rounded-2xl px-5 py-4 flex items-center border border-white/60">
-                <span class="eng-font text-4xl md:text-5xl text-morandi-sand font-medium" id="cd-hours">00</span>
+            <div class="bg-white shadow-glow rounded-2xl px-6 py-4 flex items-center border border-white/60">
+                <span class="eng-font text-5xl md:text-6xl text-morandi-sand font-medium" id="cd-hours">00</span>
                 <div class="w-[1px] h-10 bg-gradient-to-b from-transparent via-gray-300 to-transparent mx-4"></div>
                 <div class="flex flex-col items-start">
-                    <span class="text-xs tracking-widest text-gray-400">時</span>
-                    <span class="eng-font text-sm text-morandi-sage tracking-[0.2em] uppercase">Hours</span>
+                    <span class="text-sm tracking-widest text-gray-400">時</span>
+                    <span class="eng-font text-xs text-morandi-sage tracking-[0.1em] uppercase">Hours</span>
                 </div>
             </div>
 
             <!-- 分鐘卡片 -->
-            <div class="bg-white shadow-glow rounded-2xl px-5 py-4 flex items-center border border-white/60">
-                <span class="eng-font text-4xl md:text-5xl text-morandi-sand font-medium" id="cd-minutes">00</span>
+            <div class="bg-white shadow-glow rounded-2xl px-6 py-4 flex items-center border border-white/60">
+                <span class="eng-font text-5xl md:text-6xl text-morandi-sand font-medium" id="cd-minutes">00</span>
                 <div class="w-[1px] h-10 bg-gradient-to-b from-transparent via-gray-300 to-transparent mx-4"></div>
                 <div class="flex flex-col items-start">
-                    <span class="text-xs tracking-widest text-gray-400">分</span>
-                    <span class="eng-font text-sm text-morandi-sage tracking-[0.2em] uppercase">Mins</span>
+                    <span class="text-sm tracking-widest text-gray-400">分</span>
+                    <span class="eng-font text-xs text-morandi-sage tracking-[0.1em] uppercase">Mins</span>
                 </div>
             </div>
             
             <!-- 秒數卡片 -->
-            <div class="bg-white shadow-glow rounded-2xl px-5 py-4 flex items-center border border-white/60">
-                <span class="eng-font text-4xl md:text-5xl text-morandi-sand font-medium w-[50px] text-center" id="cd-seconds">00</span>
+            <div class="bg-white shadow-glow rounded-2xl px-6 py-4 flex items-center border border-white/60">
+                <span class="eng-font text-5xl md:text-6xl text-morandi-sand font-medium w-[60px] text-center" id="cd-seconds">00</span>
                 <div class="w-[1px] h-10 bg-gradient-to-b from-transparent via-gray-300 to-transparent mx-4"></div>
                 <div class="flex flex-col items-start">
-                    <span class="text-xs tracking-widest text-gray-400">秒</span>
-                    <span class="eng-font text-sm text-morandi-sage tracking-[0.2em] uppercase">Secs</span>
+                    <span class="text-sm tracking-widest text-gray-400">秒</span>
+                    <span class="eng-font text-xs text-morandi-sage tracking-[0.1em] uppercase">Secs</span>
                 </div>
             </div>
         </div>
@@ -164,19 +181,19 @@
             <!-- 時間資訊 -->
             <div class="relative bg-white p-8 rounded-2xl shadow-sm border border-gray-100 text-center mb-8 z-10">
                 <div class="eng-font text-sm text-morandi-sage tracking-[0.3em] mb-2 uppercase">Time</div>
-                <h3 class="text-xl font-medium tracking-widest text-gray-800 mb-2">上午十點入席</h3>
-                <p class="text-gray-500 tracking-wider">2026年7月19日 (星期日)</p>
+                <h3 class="text-2xl font-medium tracking-widest text-gray-800 mb-2">上午十點入席</h3>
+                <p class="text-gray-500 text-lg tracking-wider">2026年7月19日 (星期日)</p>
             </div>
 
             <!-- 地點資訊 (使用 whitespace-nowrap 確保手機不跑版) -->
             <div class="relative bg-white p-8 rounded-2xl shadow-sm border border-gray-100 text-center z-10">
                 <div class="eng-font text-sm text-morandi-sage tracking-[0.3em] mb-2 uppercase">Location</div>
-                <h3 class="text-xl font-medium tracking-widest text-gray-800 mb-3 whitespace-nowrap">真耶穌教會五甲教會</h3>
-                <p class="text-gray-500 tracking-wider text-sm">
+                <h3 class="text-2xl font-medium tracking-widest text-gray-800 mb-3 whitespace-nowrap">真耶穌教會五甲教會</h3>
+                <p class="text-gray-500 tracking-wider text-base">
                     <span class="whitespace-nowrap">高雄市鳳山區</span><span class="whitespace-nowrap">南成里明學路21號</span>
                 </p>
                 <div class="mt-6">
-                    <a href="https://maps.app.goo.gl/YourMapLinkHere" target="_blank" class="inline-block px-6 py-2 border border-morandi-sand text-morandi-sand text-sm tracking-widest rounded-full hover:bg-morandi-sand hover:text-white transition-all">開啟地圖導航</a>
+                    <a href="https://maps.app.goo.gl/tWp5w19iL6n2pDqD6" target="_blank" class="inline-block px-6 py-2 border border-morandi-sand text-morandi-sand text-base tracking-widest rounded-full hover:bg-morandi-sand hover:text-white transition-all">開啟地圖導航</a>
                 </div>
             </div>
         </div>
@@ -186,8 +203,8 @@
     <section id="rsvp" class="py-24 bg-white relative">
         <div class="max-w-2xl mx-auto px-6 relative z-10">
             <div class="text-center mb-12">
-                <h2 class="eng-font text-3xl text-morandi-sage tracking-widest mb-2 uppercase">RSVP</h2>
-                <h3 class="text-xl tracking-[0.2em] text-gray-700">誠摯地邀請您</h3>
+                <h2 class="eng-font text-4xl text-morandi-sage tracking-widest mb-2 uppercase">RSVP</h2>
+                <h3 class="text-2xl tracking-[0.2em] text-gray-700">誠摯地邀請您</h3>
             </div>
 
             <div id="form-container" class="bg-white p-8 md:p-10 rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.04)] border border-gray-50">
@@ -201,126 +218,134 @@
                             document.getElementById('success-message').style.display = 'block';
                             // 滾動到成功訊息
                             window.scrollTo({ top: document.getElementById('rsvp').offsetTop - 100, behavior: 'smooth' });
-                            submitted = false; // 重置狀態
                         }
                     }
                 </script>
                 <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="handleFormSubmit()"></iframe>
 
-                <!-- Google 表單對接 (依照最新的 4 個欄位設定) -->
+                <!-- Google 表單對接，並加入表單提交前的欄位清洗腳本 -->
+                <script>
+                    function handleFormSubmitCleaning() {
+                        submitted = true;
+                        
+                        // 鎖定送出按鈕避免重複發送
+                        const btn = document.getElementById('submit-btn');
+                        btn.innerHTML = '傳送中... SENDING';
+                        btn.disabled = true;
+
+                        // 判斷是否選擇了「其他：」單選按鈕
+                        const otherRadio = document.getElementById('attendance_other_radio');
+                        const otherInput = document.getElementById('attendance_other_input');
+                        
+                        // 如果未選擇「其他：」，則動態移除 name 屬性，避免將空參數 BBB 傳送給 Google
+                        if (!otherRadio.checked) {
+                            otherInput.removeAttribute('name');
+                        } else {
+                            otherInput.setAttribute('name', 'entry.1653406339.other_option_response');
+                        }
+                    }
+                </script>
+
                 <form action="https://docs.google.com/forms/d/e/1FAIpQLSfvXaBdN9V-RXb601EkZkaIYB02mibcqLig8cf-DVigx5Vmiw/formResponse"
                       method="POST"
                       target="hidden_iframe"
-                      onsubmit="submitted=true;"
+                      onsubmit="handleFormSubmitCleaning();"
                       class="space-y-6">
 
-                    <!-- 欄位 1: 姓名 -->
+                    <!-- 1. 姓名 (中英雙語標籤，且完全清空 AAAA) -->
                     <div>
                         <label class="block mb-2">
-                            <span class="text-sm font-medium tracking-widest text-gray-700">姓名 <span class="text-morandi-sand">*</span></span>
-                            <span class="eng-font text-xs text-morandi-sage ml-1 tracking-wider uppercase">Name</span>
+                            <span class="text-base font-medium tracking-widest text-gray-700">姓名 <span class="text-morandi-sand">*</span></span>
+                            <span class="eng-font text-sm text-morandi-sage ml-1 tracking-wider uppercase">Name</span>
                         </label>
                         <input type="text" name="entry.739707933" required
-                               class="w-full px-4 py-3 bg-morandi-bg border border-gray-200 rounded-xl transition-all duration-300 focus:outline-none focus:ring-1 focus:ring-morandi-sage focus:border-morandi-sage text-gray-700">
+                               class="w-full px-4 py-3 bg-morandi-bg border border-gray-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-morandi-sage text-gray-700 text-base">
                     </div>
 
-                    <!-- 欄位 2: 與新郎/新娘的關係 -->
+                    <!-- 2. 與新郎/新娘的關係 (中英雙語標籤) -->
                     <div>
                         <label class="block mb-2">
-                            <span class="text-sm font-medium tracking-widest text-gray-700">與新郎/新娘的關係 <span class="text-morandi-sand">*</span></span>
-                            <span class="eng-font text-xs text-morandi-sage ml-1 tracking-wider uppercase">Relationship</span>
+                            <span class="text-base font-medium tracking-widest text-gray-700">與新郎/新娘的關係 <span class="text-morandi-sand">*</span></span>
+                            <span class="eng-font text-sm text-morandi-sage ml-1 tracking-wider uppercase">Relationship</span>
                         </label>
                         <input type="text" name="entry.309738085" required placeholder="例如：男方大學同學、女方親友..."
-                               class="w-full px-4 py-3 bg-morandi-bg border border-gray-200 rounded-xl transition-all duration-300 focus:outline-none focus:ring-1 focus:ring-morandi-sage focus:border-morandi-sage text-gray-700 text-sm">
+                               class="w-full px-4 py-3 bg-morandi-bg border border-gray-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-morandi-sage text-gray-700 text-base">
                     </div>
 
-                    <!-- 欄位 3: 是否出席 -->
+                    <!-- 3. 出席意願 (中英雙語標籤) -->
                     <div>
                         <label class="block mb-3">
-                            <span class="text-sm font-medium tracking-widest text-gray-700">出席意願 <span class="text-morandi-sand">*</span></span>
-                            <span class="eng-font text-xs text-morandi-sage ml-1 tracking-wider uppercase">Attendance</span>
+                            <span class="text-base font-medium tracking-widest text-gray-700">出席意願 <span class="text-morandi-sand">*</span></span>
+                            <span class="eng-font text-sm text-morandi-sage ml-1 tracking-wider uppercase">Attendance</span>
                         </label>
                         <div class="space-y-3 bg-morandi-bg p-4 rounded-xl border border-gray-200/60">
                             <label class="flex items-center space-x-3 cursor-pointer p-2 hover:bg-white rounded-lg transition-colors">
-                                <input type="radio" name="entry.1653406339" value="準時出席" required class="w-4 h-4 text-morandi-sage focus:ring-morandi-sage border-gray-300">
-                                <span class="text-gray-700 text-sm tracking-wide">準時出席，見證幸福！</span>
+                                <input type="radio" name="entry.1653406339" value="準時出席" required class="w-4 h-4 text-morandi-sage focus:ring-morandi-sage">
+                                <span class="text-gray-700 text-base tracking-wide">準時出席，見證幸福！</span>
                             </label>
                             <label class="flex items-center space-x-3 cursor-pointer p-2 hover:bg-white rounded-lg transition-colors">
-                                <input type="radio" name="entry.1653406339" value="無法出席" required class="w-4 h-4 text-morandi-sage focus:ring-morandi-sage border-gray-300">
-                                <span class="text-gray-700 text-sm tracking-wide">無法出席，但獻上最誠摯的祝福</span>
+                                <input type="radio" name="entry.1653406339" value="無法出席" required class="w-4 h-4 text-morandi-sage focus:ring-morandi-sage">
+                                <span class="text-gray-700 text-base tracking-wide">無法出席，但獻上最誠摯的祝福</span>
                             </label>
                             <label class="flex items-center space-x-3 cursor-pointer p-2 hover:bg-white rounded-lg transition-colors w-full">
-                                <input type="radio" name="entry.1653406339" value="__other_option__" required id="attendance_other_radio" class="w-4 h-4 text-morandi-sage focus:ring-morandi-sage border-gray-300 flex-shrink-0">
-                                <span class="text-gray-700 text-sm whitespace-nowrap">其他：</span>
-                                <input type="text" name="entry.1653406339.other_option_response"
+                                <input type="radio" name="entry.1653406339" value="__other_option__" required id="attendance_other_radio" class="w-4 h-4 text-morandi-sage focus:ring-morandi-sage flex-shrink-0">
+                                <span class="text-gray-700 text-base whitespace-nowrap">其他：</span>
+                                <input type="text" id="attendance_other_input" name="entry.1653406339.other_option_response"
                                        onclick="document.getElementById('attendance_other_radio').checked = true;"
-                                       class="flex-1 px-3 py-2 bg-white border border-gray-200 rounded-md transition-all duration-300 text-sm focus:outline-none focus:ring-1 focus:ring-morandi-sage"
+                                       class="flex-1 px-3 py-2 bg-white border border-gray-200 rounded-md text-base focus:outline-none focus:ring-1 focus:ring-morandi-sage animate-pulse focus:animate-none"
                                        placeholder="請輸入其他狀況">
                             </label>
                         </div>
                     </div>
 
-                    <!-- 欄位 4: 祝福留言 -->
+                    <!-- 4. 想對我們說的話 (中英雙語標籤) -->
                     <div>
                         <label class="block mb-2">
-                            <span class="text-sm font-medium tracking-widest text-gray-700">想對我們說的話</span>
-                            <span class="eng-font text-xs text-morandi-sage ml-1 tracking-wider uppercase">Messages</span>
+                            <span class="text-base font-medium tracking-widest text-gray-700">想對我們說的話</span>
+                            <span class="eng-font text-sm text-morandi-sage ml-1 tracking-wider uppercase">Messages</span>
                         </label>
                         <textarea name="entry.635026613" rows="3" placeholder="期待你們的到來！"
-                                  class="w-full px-4 py-3 bg-morandi-bg border border-gray-200 rounded-xl transition-all duration-300 resize-none focus:outline-none focus:ring-1 focus:ring-morandi-sage focus:border-morandi-sage text-gray-700 text-sm"></textarea>
+                                  class="w-full px-4 py-3 bg-morandi-bg border border-gray-200 rounded-xl resize-none focus:outline-none focus:ring-1 focus:ring-morandi-sage text-gray-700 text-base"></textarea>
                     </div>
 
                     <!-- 提交按鈕 -->
                     <div class="pt-4">
-                        <button type="submit" class="w-full bg-morandi-sage hover:bg-[#7b9187] text-white font-medium tracking-[0.2em] py-4 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg">
-                            送出回函 <span class="eng-font ml-2 text-sm">SEND RSVP</span>
+                        <button type="submit" id="submit-btn" class="w-full bg-morandi-sage hover:bg-[#7b9187] text-white font-medium tracking-[0.2em] py-4 rounded-xl transition-all duration-300 shadow-md text-lg">
+                            送出回函 <span class="eng-font ml-2 text-base">SEND RSVP</span>
                         </button>
                     </div>
                 </form>
             </div>
 
-            <!-- 提交成功後的感謝訊息 (預設隱藏) -->
+            <!-- 成功訊息 -->
             <div id="success-message" class="hidden text-center py-16 bg-white p-8 rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.04)] border border-gray-50">
                 <svg class="w-16 h-16 mx-auto text-morandi-sand mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                <h3 class="text-2xl font-medium tracking-widest text-gray-800 mb-4">回函已成功送出</h3>
-                <p class="text-gray-500 tracking-wider leading-relaxed">
-                    非常感謝您的回覆，<br>期待在婚禮當天與您相聚！
-                </p>
+                <h3 class="text-3xl font-medium tracking-widest text-gray-800 mb-4">回函已成功送出</h3>
+                <p class="text-gray-500 text-lg tracking-wider leading-relaxed">非常感謝您的回覆，<br>期待在婚禮當天與您相聚！</p>
             </div>
         </div>
     </section>
 
     <!-- 頁尾 -->
     <footer class="py-12 bg-morandi-bg text-center">
-        <p class="eng-font text-sm text-gray-400 tracking-[0.3em] uppercase">
-            C & L Wedding . 2026
-        </p>
+        <p class="eng-font text-sm text-gray-400 tracking-[0.3em] uppercase">C & L Wedding . 2026</p>
     </footer>
 
-    <!-- 倒數計時器腳本 -->
+    <!-- 計時器腳本 -->
     <script>
-        // 設定婚禮日期: 2026年7月19日 10:00:00
         const weddingDate = new Date('2026-07-19T10:00:00').getTime();
-
         const timer = setInterval(function() {
             const now = new Date().getTime();
             const distance = weddingDate - now;
-
             if (distance < 0) {
                 clearInterval(timer);
-                document.getElementById('cd-days').innerText = "00";
-                document.getElementById('cd-hours').innerText = "00";
-                document.getElementById('cd-minutes').innerText = "00";
-                document.getElementById('cd-seconds').innerText = "00";
                 return;
             }
-
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // 補零處理並更新畫面
             document.getElementById('cd-days').innerText = String(days).padStart(2, '0');
             document.getElementById('cd-hours').innerText = String(hours).padStart(2, '0');
             document.getElementById('cd-minutes').innerText = String(minutes).padStart(2, '0');
