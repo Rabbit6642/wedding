@@ -193,13 +193,13 @@
                     <span class="whitespace-nowrap">高雄市鳳山區</span><span class="whitespace-nowrap">南成里明學路21號</span>
                 </p>
                 <div class="mt-6">
-                    <a href="https://maps.app.goo.gl/tWp5w19iL6n2pDqD6" target="_blank" class="inline-block px-6 py-2 border border-morandi-sand text-morandi-sand text-base tracking-widest rounded-full hover:bg-morandi-sand hover:text-white transition-all">開啟地圖導航</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=真耶穌教會五甲教會+高雄市鳳山區南成里明學路21號" target="_blank" class="inline-block px-6 py-2 border border-morandi-sand text-morandi-sand text-base tracking-widest rounded-full hover:bg-morandi-sand hover:text-white transition-all">開啟地圖導航</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 出席回函 (隱藏 Iframe 提交表單) -->
+    <!-- 出席回函 (現代化 Fetch 提交表單) -->
     <section id="rsvp" class="py-24 bg-white relative">
         <div class="max-w-2xl mx-auto px-6 relative z-10">
             <div class="text-center mb-12">
@@ -209,13 +209,7 @@
 
             <div id="form-container" class="bg-white p-8 md:p-10 rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.04)] border border-gray-50">
                 
-                <!-- 隱藏的 iframe 用於無感接收表單提交 -->
-                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-
-                <form id="weddingForm" action="https://docs.google.com/forms/d/e/1FAIpQLSfvXaBdN9V-RXb601EkZkaIYB02mibcqLig8cf-DVigx5Vmiw/formResponse"
-                      method="POST"
-                      target="hidden_iframe"
-                      class="space-y-6">
+                <form id="weddingForm" class="space-y-6">
 
                     <!-- 1. 姓名 (中英雙語標籤) -->
                     <div>
@@ -296,7 +290,7 @@
         <p class="eng-font text-sm text-gray-400 tracking-[0.3em] uppercase">C & L Wedding . 2026</p>
     </footer>
 
-    <!-- 計時器與全新防錯傳送腳本 -->
+    <!-- 計時器與全新 Fetch 背景傳送腳本 -->
     <script>
         // 1. 倒數計時腳本
         const weddingDate = new Date('2026-07-19T10:00:00').getTime();
@@ -318,32 +312,59 @@
             document.getElementById('cd-seconds').innerText = String(seconds).padStart(2, '0');
         }, 1000);
 
-        // 2. 表單安全傳送邏輯 (最原始的純 HTML 發送，100% 繞過阻擋)
+        // 2. 現代化 Fetch 安全傳送邏輯 (100% 繞過阻擋)
         const form = document.getElementById('weddingForm');
         const submitBtn = document.getElementById('submit-btn');
-        const iframe = document.getElementById('hidden_iframe');
-        let isSubmitted = false;
 
-        form.addEventListener('submit', function() {
-            // 注意：這裡絕對不使用 e.preventDefault()，讓瀏覽器自然發出最標準的 POST 請求
-            isSubmitted = true;
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // 攔截原生提交，由我們的腳本接管
             
-            // 延遲 10 毫秒鎖定按鈕，確保瀏覽器已經把資料送出去了
-            setTimeout(() => {
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '傳送中... <span class="eng-font ml-2 text-base">SENDING</span>';
-            }, 10);
-        });
+            // 鎖定按鈕，顯示傳送中
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '傳送中... <span class="eng-font ml-2 text-base">SENDING</span>';
 
-        // 3. 監聽 Iframe，顯示絕美感謝畫面
-        iframe.onload = function() {
-            if (isSubmitted) {
+            // 準備要傳送的資料
+            const formData = new FormData(form);
+            const params = new URLSearchParams();
+
+            // 抓取各個欄位的值 (對應 Google 的 entry ID)
+            params.append('entry.739707933', formData.get('entry.739707933') || ''); // 姓名
+            params.append('entry.309738085', formData.get('entry.309738085') || ''); // 關係
+            params.append('entry.635026613', formData.get('entry.635026613') || ''); // 留言
+
+            // 處理「出席意願」與「其他選項」
+            const attendance = formData.get('entry.1653406339');
+            params.append('entry.1653406339', attendance || '');
+
+            // 只有當賓客真的選了「其他」時，我們才把「其他」的文字框資料放進去傳送
+            if (attendance === '__other_option__') {
+                const otherText = document.getElementById('attendance_other_input').value;
+                params.append('entry.1653406339.other_option_response', otherText || '其他狀況');
+            }
+
+            // 使用現代 Fetch API 進行強制背景傳送
+            fetch('https://docs.google.com/forms/d/e/1FAIpQLSfvXaBdN9V-RXb601EkZkaIYB02mibcqLig8cf-DVigx5Vmiw/formResponse', {
+                method: 'POST',
+                mode: 'no-cors', // 關鍵：這會告訴瀏覽器忽略跨網域安全阻擋，強制將封包送出
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: params.toString()
+            })
+            .then(() => {
+                // 送出成功後，隱藏表單，顯示感謝訊息
                 document.getElementById('form-container').style.display = 'none';
                 document.getElementById('success-message').style.display = 'block';
                 // 平滑滾動到感謝訊息
                 window.scrollTo({ top: document.getElementById('rsvp').offsetTop - 100, behavior: 'smooth' });
-            }
-        };
+            })
+            .catch(error => {
+                // 萬一網路斷線的防呆處理
+                alert('網路連線似乎有點問題，請稍後再試喔！');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '送出回函 <span class="eng-font ml-2 text-base">SEND RSVP</span>';
+            });
+        });
     </script>
 </body>
 </html>
