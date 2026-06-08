@@ -225,75 +225,74 @@
                     純淨提交：我們不再使用 e.preventDefault() 攔截器，
                     而是讓瀏覽器用最自然的行為，將資料送到 iframe，完美繞過所有阻擋機制！
                 -->
-                <form action="https://docs.google.com/forms/d/e/1FAIpQLSfvXaBdN9V-RXb601EkZkaIYB02mibcqLig8cf-DVigx5Vmiw/formResponse"
-                      method="POST"
-                      target="hidden_iframe"
-                      onsubmit="handleFormSubmit();"
-                      class="space-y-8">
+               <form action="https://docs.google.com/forms/d/e/1FAIpQLSfvXaBdN9V-RXb601EkZkaIYB02mibcqLig8cf-DVigx5Vmiw/formResponse"
+      method="POST"
+      target="hidden_iframe"
+      onsubmit="handleFormSubmit();"
+      class="space-y-8">
 
-                    <!-- 1. 姓名 -->
-                    <div>
-                        <label class="block mb-2">
-                            <span class="text-2xl tracking-widest text-gray-800 font-bold">姓名 <span class="text-morandi-sand">*</span></span>
-                            <span class="eng-font text-xs text-morandi-sage ml-1 tracking-wider uppercase">Name</span>
-                        </label>
-                        <input type="text" name="entry.739707933" required
-                               class="w-full px-4 py-3 bg-morandi-bg border border-gray-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-morandi-sage text-gray-800">
-                    </div>
+    <div>
+        <label class="block mb-2">
+            <span class="text-2xl tracking-widest text-gray-800 font-bold">姓名 <span class="text-morandi-sand">*</span></span>
+            <span class="eng-font text-xs text-morandi-sage ml-1 tracking-wider uppercase">Name</span>
+        </label>
+        <input type="text" name="entry.1114561081" required
+               class="w-full px-4 py-3 bg-morandi-bg border border-gray-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-morandi-sage text-gray-800">
+    </div>
 
-                    <!-- 2. 與新郎/新娘的關係 -->
-                    <div>
-                        <label class="block mb-2">
-                            <span class="text-2xl tracking-widest text-gray-800 font-bold">與新郎/新娘的關係 <span class="text-morandi-sand">*</span></span>
-                            <span class="eng-font text-xs text-morandi-sage ml-1 tracking-wider uppercase">Relationship</span>
-                        </label>
-                        <input type="text" name="entry.309738085" required placeholder="例如：男方大學同學、女方親友..."
-                               class="w-full px-4 py-3 bg-morandi-bg border border-gray-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-morandi-sage text-gray-800">
-                    </div>
+    <div>
+        <label class="block mb-3">
+            <span class="text-2xl tracking-widest text-gray-800 font-bold">是否出席 <span class="text-morandi-sand">*</span></span>
+            <span class="eng-font text-xs text-morandi-sage ml-1 tracking-wider uppercase">Attendance</span>
+        </label>
+        <div class="space-y-4 bg-morandi-bg p-5 rounded-xl border border-gray-200">
+            <label class="flex items-center space-x-4 cursor-pointer p-1">
+                <input type="radio" name="entry.548480373" value="確定出席" required class="w-5 h-5 text-morandi-sage focus:ring-morandi-sage">
+                <span class="text-gray-800 tracking-wide text-xl">確定出席</span>
+            </label>
+            <label class="flex items-center space-x-4 cursor-pointer p-1">
+                <input type="radio" name="entry.548480373" value="確定不出席" required class="w-5 h-5 text-morandi-sage focus:ring-morandi-sage">
+                <span class="text-gray-800 tracking-wide text-xl">確定不出席</span>
+            </label>
+            <label class="flex items-center space-x-4 cursor-pointer p-1">
+                <input type="radio" name="entry.548480373" value="可能出席 (目前無法確定待接近再通知)" required class="w-5 h-5 text-morandi-sage focus:ring-morandi-sage">
+                <span class="text-gray-800 tracking-wide text-xl">可能出席 (目前無法確定待接近再通知)</span>
+            </label>
+            <label class="flex items-center space-x-4 cursor-pointer p-1 w-full">
+                <input type="radio" name="entry.548480373" value="__other_option__" required id="attendance_other_radio" class="w-5 h-5 text-morandi-sage focus:ring-morandi-sage flex-shrink-0">
+                <span class="text-gray-800 text-xl whitespace-nowrap">其他：</span>
+                <input type="text" name="entry.548480373.other_option_response"
+                       onfocus="document.getElementById('attendance_other_radio').checked = true;"
+                       class="flex-1 px-3 py-2 bg-white border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-morandi-sage"
+                       placeholder="請輸入其他狀況">
+            </label>
+        </div>
+    </div>
 
-                    <!-- 3. 出席意願 -->
-                    <div>
-                        <label class="block mb-3">
-                            <span class="text-2xl tracking-widest text-gray-800 font-bold">出席意願 <span class="text-morandi-sand">*</span></span>
-                            <span class="eng-font text-xs text-morandi-sage ml-1 tracking-wider uppercase">Attendance</span>
-                        </label>
-                        <div class="space-y-4 bg-morandi-bg p-5 rounded-xl border border-gray-200">
-                            <label class="flex items-center space-x-4 cursor-pointer p-1">
-                                <input type="radio" name="entry.1653406339" value="準時出席" required class="w-5 h-5 text-morandi-sage focus:ring-morandi-sage">
-                                <span class="text-gray-800 tracking-wide text-xl">準時出席，見證幸福！</span>
-                            </label>
-                            <label class="flex items-center space-x-4 cursor-pointer p-1">
-                                <input type="radio" name="entry.1653406339" value="無法出席" required class="w-5 h-5 text-morandi-sage focus:ring-morandi-sage">
-                                <span class="text-gray-800 tracking-wide text-xl">無法出席，但獻上最誠摯的祝福</span>
-                            </label>
-                            <label class="flex items-center space-x-4 cursor-pointer p-1 w-full">
-                                <input type="radio" name="entry.1653406339" value="__other_option__" required id="attendance_other_radio" class="w-5 h-5 text-morandi-sage focus:ring-morandi-sage flex-shrink-0">
-                                <span class="text-gray-800 text-xl whitespace-nowrap">其他：</span>
-                                <input type="text" name="entry.1653406339.other_option_response"
-                                       onfocus="document.getElementById('attendance_other_radio').checked = true;"
-                                       class="flex-1 px-3 py-2 bg-white border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-morandi-sage"
-                                       placeholder="請輸入其他狀況">
-                            </label>
-                        </div>
-                    </div>
+    <div>
+        <label class="block mb-2">
+            <span class="text-2xl tracking-widest text-gray-800 font-bold">出席人數 <span class="text-morandi-sand">*</span></span>
+            <span class="eng-font text-xs text-morandi-sage ml-1 tracking-wider uppercase">Number of Guests</span>
+        </label>
+        <input type="text" name="entry.1884496265" required placeholder="例如：1人、2大1小..."
+               class="w-full px-4 py-3 bg-morandi-bg border border-gray-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-morandi-sage text-gray-800">
+    </div>
 
-                    <!-- 4. 想對我們說的話 -->
-                    <div>
-                        <label class="block mb-2">
-                            <span class="text-2xl tracking-widest text-gray-800 font-bold">想對我們說的話</span>
-                            <span class="eng-font text-xs text-morandi-sage ml-1 tracking-wider uppercase">Messages</span>
-                        </label>
-                        <textarea name="entry.635026613" rows="4" placeholder="期待你們的到來！"
-                                  class="w-full px-4 py-3 bg-morandi-bg border border-gray-200 rounded-xl resize-none focus:outline-none focus:ring-1 focus:ring-morandi-sage text-gray-800"></textarea>
-                    </div>
+    <div>
+        <label class="block mb-2">
+            <span class="text-2xl tracking-widest text-gray-800 font-bold">聯絡方式 (手機/EMAIL/LINE ID) <span class="text-morandi-sand">*</span></span>
+            <span class="eng-font text-xs text-morandi-sage ml-1 tracking-wider uppercase">Contact</span>
+        </label>
+        <input type="text" name="entry.1130634674" required
+               class="w-full px-4 py-3 bg-morandi-bg border border-gray-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-morandi-sage text-gray-800">
+    </div>
 
-                    <!-- 提交按鈕 -->
-                    <div class="pt-6">
-                        <button type="submit" id="submit-btn" class="w-full bg-morandi-sage hover:bg-[#7b9187] text-white py-4 rounded-xl transition-all duration-300 shadow-md text-2xl tracking-[0.2em]">
-                            送出回函 <span class="eng-font ml-2 text-xl">SEND RSVP</span>
-                        </button>
-                    </div>
-                </form>
+    <div class="pt-6">
+        <button type="submit" id="submit-btn" class="w-full bg-morandi-sage hover:bg-[#7b9187] text-white py-4 rounded-xl transition-all duration-300 shadow-md text-2xl tracking-[0.2em]">
+            送出回函 <span class="eng-font ml-2 text-xl">SEND RSVP</span>
+        </button>
+    </div>
+</form>
             </div>
 
             <!-- 成功訊息 -->
