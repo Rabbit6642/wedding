@@ -92,15 +92,8 @@
                 YU & HAN Wedding . 2026
             </div>
             <div class="space-x-8 text-2xl tracking-widest text-gray-800 hidden md:flex">
-                <a href="#about" class="hover:text-morandi-sand transition-colors">關於我們</a>
-                <a href="#details" class="hover:text-morandi-sand transition-colors">婚禮詳情</a>
-                <a href="#dress-code" class="hover:text-morandi-sand transition-colors">服裝建議</a>
-                <a href="#rsvp" class="hover:text-morandi-sand transition-colors">出席回函</a>
             </div>
             <div class="md:hidden text-morandi-sage flex space-x-4 text-lg tracking-widest">
-                <a href="#details">詳情</a>
-                <a href="#dress-code">服裝</a>
-                <a href="#rsvp">回函</a>
             </div>
         </div>
     </nav>
@@ -147,15 +140,15 @@
         </div>
     </section>
 
-    <section id="about" class="pb-24 pt-8 px-6 bg-morandi-bg text-center">
+    <section id="about" class="pb-24 pt-8 px-6 bg-morandi-bg text-center border-t border-gray-100">
         <div class="max-w-2xl mx-auto">
-            <h3 class="text-2xl md:text-3xl tracking-[0.15em] leading-loose text-gray-400" style="font-style: italic;">
-                「我屬我的良人，<br>我的良人也屬我。」
+            <h3 class="text-2xl md:text-3xl text-gray-400 leading-relaxed tracking-wider" style="font-style: italic;">
+                I am my beloved's, and my beloved is mine.
             </h3>
         </div>
     </section>
 
-    <section id="details" class="py-24 bg-morandi-bg">
+    <section id="details" class="py-24 bg-morandi-bg border-t border-gray-100">
         <div class="text-center mb-12">
             <span class="eng-font text-xs md:text-sm tracking-[0.5em] text-morandi-sand uppercase">W e d d i n g   D e t a i l s</span>
         </div>
@@ -204,8 +197,7 @@
                 <div class="flex flex-col items-center text-center max-w-[240px] w-full">
                     <div class="w-40 h-56 rounded-t-full border border-morandi-sand/20 bg-white/40 flex items-center justify-center mb-6 shadow-glow">
                         <svg class="w-16 h-16 text-morandi-sand/70" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 3h12l1 6-7 4-7-4 1-6z M8 9l4 10 4-10 M12 3v6" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9l-1.5 3h3L12 9z M10.5 12l1.5 5 1.5-5" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 3v5c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V3l1 1-1.5 5.5-3.5 2.5V20H9V12l-3.5-2.5L4 4l1-1zM9 12h6" />
                         </svg>
                     </div>
                     <h4 class="text-2xl font-bold text-gray-800 mb-4 tracking-widest">男士建議</h4>
@@ -257,7 +249,7 @@
                     </svg>
                     <div class="w-12 h-[1px] bg-morandi-sand/30"></div>
                 </div>
-                <p class="text-gray-400 text-xl tracking-widest leading-relaxed">
+                <p class="text-gray-400 text-xl tracking-widest leading-relaxed eng-font" style="font-style: italic;">
                     期待您以優雅正式的穿搭，<br class="md:hidden">與我們共享這份喜悅。
                 </p>
             </div>
@@ -265,7 +257,7 @@
         </div>
     </section>
 
-    <section id="rsvp" class="py-24 bg-white relative">
+    <section id="rsvp" class="py-24 bg-white relative border-t border-gray-100">
         <div class="max-w-2xl mx-auto px-6 relative z-10">
             <div class="text-center mb-12">
                 <span class="eng-font text-xs md:text-sm tracking-[0.5em] text-morandi-sand uppercase block mb-4">R s v p</span>
@@ -307,16 +299,16 @@
                         </label>
                         <div class="space-y-4 bg-morandi-bg p-5 rounded-xl border border-gray-200">
                             <label class="flex items-center space-x-4 cursor-pointer p-1">
-                                <input type="radio" name="entry.1653406339" value="確定出席" required class="w-5 h-5 text-morandi-sage focus:ring-morandi-sage">
+                                <input type="radio" name="entry.1653406339" value="確定出席" required class="w-5 h-5 text-morandi-sand/30 focus:ring-morandi-sage">
                                 <span class="text-gray-800 tracking-wide text-xl">確定出席</span>
                             </label>
                             <label class="flex items-center space-x-4 cursor-pointer p-1">
-                                <input type="radio" name="entry.1653406339" value="確定不出席" required class="w-5 h-5 text-morandi-sage focus:ring-morandi-sage">
+                                <input type="radio" name="entry.1653406339" value="確定不出席" required class="w-5 h-5 text-morandi-sand/30 focus:ring-morandi-sage">
                                 <span class="text-gray-800 tracking-wide text-xl">確定不出席</span>
                             </label>
                             <label class="block cursor-pointer p-1">
                                 <div class="flex items-center space-x-4">
-                                    <input type="radio" name="entry.1653406339" value="__other_option__" required id="attendance_other_radio" class="w-5 h-5 text-morandi-sage focus:ring-morandi-sage flex-shrink-0">
+                                    <input type="radio" name="entry.1653406339" value="__other_option__" required id="attendance_other_radio" class="w-5 h-5 text-morandi-sand/30 focus:ring-morandi-sage flex-shrink-0">
                                     <span class="text-gray-800 text-xl">其他：</span>
                                 </div>
                                 <div class="mt-2 pl-9">
@@ -336,23 +328,23 @@
                         </label>
                         <div class="space-y-4 bg-morandi-bg p-5 rounded-xl border border-gray-200">
                             <label class="flex items-center space-x-4 cursor-pointer p-1">
-                                <input type="radio" name="entry.1343395502" value="男方家人親戚" required class="w-5 h-5 text-morandi-sage focus:ring-morandi-sage">
+                                <input type="radio" name="entry.1343395502" value="男方家人親戚" required class="w-5 h-5 text-morandi-sand/30 focus:ring-morandi-sage">
                                 <span class="text-gray-800 tracking-wide text-xl">男方家人親戚</span>
                             </label>
                             <label class="flex items-center space-x-4 cursor-pointer p-1">
-                                <input type="radio" name="entry.1343395502" value="男方同學、好友" required class="w-5 h-5 text-morandi-sage focus:ring-morandi-sage">
+                                <input type="radio" name="entry.1343395502" value="男方同學、好友" required class="w-5 h-5 text-morandi-sand/30 focus:ring-morandi-sage">
                                 <span class="text-gray-800 tracking-wide text-xl">男方同學、好友</span>
                             </label>
                             <label class="flex items-center space-x-4 cursor-pointer p-1">
-                                <input type="radio" name="entry.1343395502" value="女方家人親戚" required class="w-5 h-5 text-morandi-sage focus:ring-morandi-sage">
+                                <input type="radio" name="entry.1343395502" value="女方家人親戚" required class="w-5 h-5 text-morandi-sand/30 focus:ring-morandi-sage">
                                 <span class="text-gray-800 tracking-wide text-xl">女方家人親戚</span>
                             </label>
                             <label class="flex items-center space-x-4 cursor-pointer p-1">
-                                <input type="radio" name="entry.1343395502" value="女方同學、好友" required class="w-5 h-5 text-morandi-sage focus:ring-morandi-sage">
+                                <input type="radio" name="entry.1343395502" value="女方同學、好友" required class="w-5 h-5 text-morandi-sand/30 focus:ring-morandi-sage">
                                 <span class="text-gray-800 tracking-wide text-xl">女方同學、好友</span>
                             </label>
                             <label class="flex items-center space-x-4 cursor-pointer p-1">
-                                <input type="radio" name="entry.1343395502" value="共同好友 (教會弟兄姊妹)" required class="w-5 h-5 text-morandi-sage focus:ring-morandi-sage">
+                                <input type="radio" name="entry.1343395502" value="共同好友 (教會弟兄姊妹)" required class="w-5 h-5 text-morandi-sand/30 focus:ring-morandi-sage">
                                 <span class="text-gray-800 tracking-wide text-xl">共同好友 (教會弟兄姊妹)</span>
                             </label>
                         </div>
@@ -392,12 +384,12 @@
         </div>
     </section>
 
-    <footer class="py-16 bg-morandi-bg text-center">
+    <footer class="py-16 bg-morandi-bg text-center Border-t border-gray-100">
         <p class="eng-font text-base text-gray-400 tracking-[0.4em] uppercase">YU & HAN Wedding . 2026</p>
     </footer>
 
     <script>
-        // 1. 倒數計時腳本
+        // 1. 倒數計時腳本 ( preserved as is )
         const weddingDate = new Date('2026-07-19T10:00:00').getTime();
         const timer = setInterval(function() {
             const now = new Date().getTime();
@@ -417,7 +409,7 @@
             document.getElementById('cd-seconds').innerText = String(seconds).padStart(2, '0');
         }, 1000);
 
-        // 2. 表單純 HTML 發送的 UI 切換邏輯
+        // 2. 表單純 HTML 發送的 UI 切換邏輯 ( preserved as is )
         function handleFormSubmit() {
             const btn = document.getElementById('submit-btn');
             btn.innerHTML = '傳送中... <span class="eng-font ml-2 text-xl">SENDING</span>';
@@ -426,7 +418,7 @@
             }, 50);
         }
 
-        // 監聽 iframe 載入
+        // 監聽 iframe 載入 ( preserved as is )
         document.getElementById('hidden_iframe').onload = function() {
             const btn = document.getElementById('submit-btn');
             if (btn.disabled) {
