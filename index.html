@@ -82,9 +82,26 @@
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #d4a373; border-radius: 10px; }
+
+        /* 音樂圖標旋轉動畫 */
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+            animation: spin-slow 6s linear infinite;
+        }
     </style>
 </head>
 <body class="antialiased">
+
+    <audio id="wedding-music" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+    <button id="music-btn" class="fixed bottom-6 right-6 z-50 bg-white/70 backdrop-blur-md border border-morandi-sand/30 p-3 rounded-full shadow-card text-morandi-sand hover:text-gray-600 transition-all duration-300 focus:outline-none flex items-center justify-center">
+        <svg id="music-icon" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 9l10.5-3v12m-10.5-9v11.25m0-11.25L5.25 10.5m3.75-1.5V21m10.5-15V15.75m0-9.75l-3.75 1.05m3.75-1.05V18" />
+        </svg>
+    </button>
 
     <nav class="fixed top-0 left-0 right-0 z-50 glass-nav">
         <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
@@ -165,18 +182,18 @@
                 
                 <div class="space-y-6 tracking-widest pl-2">
                     <div>
-                        <p class="text-gray-800 text-xl font-bold mb-1">地點：真耶穌教會五甲教會</p>
-                        <p class="text-gray-500 text-lg">高雄市鳳山區南成里明學路21號</p>
+                        <p class="text-gray-800 text-2xl font-bold mb-1">地點：真耶穌教會五甲教會</p>
+                        <p class="text-gray-500 text-xl">高雄市鳳山區南成里明學路21號</p>
                     </div>
                     <div>
-                        <p class="text-gray-800 text-xl font-bold mb-1">時間：09:30 入場 | 10:00 典禮開始</p>
+                        <p class="text-gray-800 text-2xl font-bold mb-1">時間：09:30 入場 | 10:00 典禮開始</p>
                     </div>
                 </div>
 
                 <div class="mt-10 pt-6 border-t border-gray-100 pl-2">
                     <a href="https://maps.app.goo.gl/WmVCUvK239kq6qko7?g_st=ac" target="_blank" class="inline-flex items-center space-x-2 text-morandi-sand hover:text-gray-600 transition-colors">
-                        <span class="text-lg tracking-widest">開啟地圖導航</span>
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        <span class="text-xl tracking-widest">開啟地圖導航</span>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                     </a>
                 </div>
             </div>
@@ -355,7 +372,7 @@
                             <span class="text-2xl tracking-widest text-gray-800 font-bold">出席人數 <span class="text-morandi-sand">*</span></span>
                             <span class="eng-font text-xs text-morandi-sage ml-1 tracking-wider uppercase">Number of Guests</span>
                         </label>
-                        <input type="text" name="entry.309738085" required placeholder="例如：1人、2大1小..."
+                        <input type="text" name="entry.309738085" required placeholder="例如：1人、2人"
                                class="w-full px-4 py-3 bg-morandi-bg border border-gray-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-morandi-sage text-gray-800">
                     </div>
 
@@ -427,6 +444,54 @@
                 window.scrollTo({ top: document.getElementById('rsvp').offsetTop - 100, behavior: 'smooth' });
             }
         };
+
+        // 💡 3. 終極背景音樂控制腳本
+        const audio = document.getElementById('wedding-music');
+        const musicBtn = document.getElementById('music-btn');
+        const musicIcon = document.getElementById('music-icon');
+        let hasInteracted = false;
+
+        // 音樂播放狀態控制（旋轉動畫與圖示變換）
+        function updateMusicUI() {
+            if (audio.paused) {
+                musicBtn.classList.remove('animate-spin-slow');
+                // 換成暫停圖示（音符）
+                musicIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M9 9l10.5-3v12m-10.5-9v11.25m0-11.25L5.25 10.5m3.75-1.5V21m10.5-15V15.75m0-9.75l-3.75 1.05m3.75-1.05V18" />`;
+            } else {
+                musicBtn.classList.add('animate-spin-slow');
+                // 換成播放中圖示（雙豎線暫停鈕）
+                musicIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" />`;
+            }
+        }
+
+        // 手動點擊右下角按鈕開關音樂
+        musicBtn.addEventListener('click', function(e) {
+            e.stopPropagation(); // 防止觸發全域點擊
+            if (audio.paused) {
+                audio.play().then(updateMusicUI).catch(err => console.log("播放失敗:", err));
+            } else {
+                audio.pause();
+                updateMusicUI();
+            }
+        });
+
+        // 破解瀏覽器限制：只要賓客點擊螢幕任何地方，就嘗試偷偷啟動音樂
+        function autoPlayOnFirstInteraction() {
+            if (hasInteracted) return;
+            hasInteracted = true;
+            audio.play().then(() => {
+                updateMusicUI();
+                // 成功播放後，移除全域監聽，避免重複執行
+                document.removeEventListener('click', autoPlayOnFirstInteraction);
+                document.removeEventListener('touchstart', autoPlayOnFirstInteraction);
+            }).catch(() => {
+                // 如果還是被擋，就等下一次互動
+                hasInteracted = false;
+            });
+        }
+
+        document.addEventListener('click', autoPlayOnFirstInteraction);
+        document.addEventListener('touchstart', autoPlayOnFirstInteraction);
     </script>
 </body>
 </html>
