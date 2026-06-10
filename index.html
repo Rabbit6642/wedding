@@ -83,23 +83,21 @@
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #d4a373; border-radius: 10px; }
 
-        /* 音樂圖標旋轉動畫 */
-        @keyframes spin-slow {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        .animate-spin-slow {
-            animation: spin-slow 6s linear infinite;
+        /* 音樂控制按鈕微動效 */
+        #music-btn:hover {
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body class="antialiased">
 
-   <audio id="wedding-music" loop src="./bgm.mp3"></audio>
+    <audio id="wedding-music" loop src="./bgm.mp3"></audio>
 
-    <button id="music-btn" class="fixed bottom-6 right-6 z-50 bg-white/70 backdrop-blur-md border border-morandi-sand/30 p-3 rounded-full shadow-card text-morandi-sand hover:text-gray-600 transition-all duration-300 focus:outline-none flex items-center justify-center">
+    <button id="music-btn" class="fixed bottom-6 right-6 z-50 bg-white/70 backdrop-blur-md border border-morandi-sand/30 p-3 rounded-full shadow-card text-morandi-sand transition-all duration-300 focus:outline-none flex items-center justify-center w-12 h-12">
         <svg id="music-icon" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 9l10.5-3v12m-10.5-9v11.25m0-11.25L5.25 10.5m3.75-1.5V21m10.5-15V15.75m0-9.75l-3.75 1.05m3.75-1.05V18" />
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="22" y1="9" x2="16" y2="15"></line>
+            <line x1="16" y1="9" x2="22" y2="15"></line>
         </svg>
     </button>
 
@@ -453,28 +451,34 @@
             }
         };
 
-        // 3. 背景音樂控制腳本
+        // 3. 背景音樂控制腳本 (已全新升級為 喇叭音波 / 靜音打叉 狀態切換)
         const audio = document.getElementById('wedding-music');
         const musicBtn = document.getElementById('music-btn');
         const musicIcon = document.getElementById('music-icon');
         let hasInteracted = false;
 
-        // 音樂播放狀態控制（旋轉動畫與圖示變換）
+        // 音樂播放狀態控制（動態更換 SVG 內文）
         function updateMusicUI() {
             if (audio.paused) {
-                musicBtn.classList.remove('animate-spin-slow');
-                // 換成暫停圖示（音符）
-                musicIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M9 9l10.5-3v12m-10.5-9v11.25m0-11.25L5.25 10.5m3.75-1.5V21m10.5-15V15.75m0-9.75l-3.75 1.05m3.75-1.05V18" />`;
+                // 換成「靜音打叉喇叭」狀態 (Volume-X)
+                musicIcon.innerHTML = `
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                    <line x1="22" y1="9" x2="16" y2="15"></line>
+                    <line x1="16" y1="9" x2="22" y2="15"></line>
+                `;
             } else {
-                musicBtn.classList.add('animate-spin-slow');
-                // 換成播放中圖示（雙豎線暫停鈕）
-                musicIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5" />`;
+                // 換成「發散音波喇叭」狀態 (Volume-2)
+                musicIcon.innerHTML = `
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+                `;
             }
         }
 
         // 手動點擊右下角按鈕開關音樂
         musicBtn.addEventListener('click', function(e) {
-            e.stopPropagation(); // 防止觸發全域點擊
+            e.stopPropagation(); 
             if (audio.paused) {
                 audio.play().then(updateMusicUI).catch(err => console.log("播放失敗:", err));
             } else {
@@ -483,17 +487,15 @@
             }
         });
 
-        // 破解瀏覽器限制：只要賓客點擊螢幕任何地方，就嘗試偷偷啟動音樂
+        // 破解瀏覽器自動播放限制
         function autoPlayOnFirstInteraction() {
             if (hasInteracted) return;
             hasInteracted = true;
             audio.play().then(() => {
                 updateMusicUI();
-                // 成功播放後，移除全域監聽，避免重複執行
                 document.removeEventListener('click', autoPlayOnFirstInteraction);
                 document.removeEventListener('touchstart', autoPlayOnFirstInteraction);
             }).catch(() => {
-                // 如果還是被擋，就等下一次互動
                 hasInteracted = false;
             });
         }
