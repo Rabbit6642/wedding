@@ -8,8 +8,8 @@
     
     <meta property="og:title" content="🫧 主昱 & 筱涵 婚禮邀請函 𐙚 ✉️" />
     <meta property="og:description" content="I am my beloved's, and my beloved is mine." />
-    <meta property="og:image" content="https://i.postimg.cc/zvRjpLQN/S-194240544.jpg" /> <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://rabbit6642.github.io/wedding/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://yu-han-2026.github.io/wedding/" />
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -99,7 +99,7 @@
 
     <audio id="wedding-music" loop src="./bgm.mp3"></audio>
 
-    <button id="music-btn" class="fixed top-3 right-6 z-[60] bg-white/70 backdrop-blur-md border border-morandi-sand/30 p-3 rounded-full shadow-card text-morandi-sand transition-all duration-300 focus:outline-none flex items-center justify-center w-12 h-12">
+    <button id="music-btn" class="fixed top-32 right-6 z-[60] bg-white/70 backdrop-blur-md border border-morandi-sand/30 p-3 rounded-full shadow-card text-morandi-sand transition-all duration-300 focus:outline-none flex items-center justify-center w-12 h-12">
         <svg id="music-icon" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
             <line x1="22" y1="9" x2="16" y2="15"></line>
@@ -463,17 +463,14 @@
         const musicIcon = document.getElementById('music-icon');
         let hasInteracted = false;
 
-        // 音樂播放狀態控制（動態更換 SVG 內文）
         function updateMusicUI() {
             if (audio.paused) {
-                // 換成「靜音打叉喇叭」狀態 (Volume-X)
                 musicIcon.innerHTML = `
                     <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
                     <line x1="22" y1="9" x2="16" y2="15"></line>
                     <line x1="16" y1="9" x2="22" y2="15"></line>
                 `;
             } else {
-                // 換成「發散音波喇叭」狀態 (Volume-2)
                 musicIcon.innerHTML = `
                     <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
                     <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
@@ -482,7 +479,6 @@
             }
         }
 
-        // 手動點擊按鈕開關音樂
         musicBtn.addEventListener('click', function(e) {
             e.stopPropagation(); 
             if (audio.paused) {
@@ -493,7 +489,6 @@
             }
         });
 
-        // 破解瀏覽器自動播放限制
         function autoPlayOnFirstInteraction() {
             if (hasInteracted) return;
             hasInteracted = true;
