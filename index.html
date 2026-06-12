@@ -38,7 +38,6 @@
     </script>
 
     <style>
-        /* 載入開源手寫字體「辰宇落雁體 2.0」 */
         @font-face {
             font-family: 'ChenYuluoyan';
             src: url('https://cdn.jsdelivr.net/gh/Chenyu-otf/chenyuluoyan_thin@main/ChenYuluoyan-2.0-Thin.ttf') format('truetype');
@@ -47,7 +46,6 @@
             font-display: swap;
         }
 
-        /* 強制全域最優先套用辰宇落雁體 */
         * {
             font-family: 'ChenYuluoyan', serif !important;
             font-weight: normal !important;
@@ -57,16 +55,14 @@
         body { 
             background-color: #fbfaf8; 
             color: #1a1a1a; 
-            font-size: 1.35rem; /* 字級自然放大，好讀又漂亮 */
+            font-size: 1.35rem; 
             line-height: 1.8;
         }
 
-        /* 僅有純英數字的標籤或特殊區塊，才允許抽換為古典英文字體 */
         .eng-font, .eng-font * { 
             font-family: 'Cormorant Garamond', 'ChenYuluoyan', serif !important;
         }
         
-        /* 毛玻璃導航列 */
         .glass-nav {
             background: rgba(251, 250, 248, 0.85);
             backdrop-filter: blur(12px);
@@ -74,7 +70,6 @@
             border-bottom: 1px solid rgba(212, 163, 115, 0.15);
         }
 
-        /* 網頁輸入框文字調整 */
         input, textarea, select {
             font-size: 1.25rem !important;
             color: #1a1a1a !important;
@@ -84,12 +79,10 @@
             color: #a0a0a0 !important;
         }
 
-        /* 隱藏原生捲軸但保持可滾動 */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #d4a373; border-radius: 10px; }
 
-        /* 音樂控制按鈕微動效 */
         #music-btn:hover {
             transform: scale(1.05);
         }
@@ -99,7 +92,7 @@
 
     <audio id="wedding-music" loop src="./bgm.mp3"></audio>
 
-    <button id="music-btn" class="fixed top-32 right-6 z-[60] bg-white/70 backdrop-blur-md border border-morandi-sand/30 p-3 rounded-full shadow-card text-morandi-sand transition-all duration-300 focus:outline-none flex items-center justify-center w-12 h-12">
+    <button id="music-btn" class="fixed bottom-10 right-6 z-[60] bg-white/70 backdrop-blur-md border border-morandi-sand/30 p-3 rounded-full shadow-card text-morandi-sand transition-all duration-300 focus:outline-none flex items-center justify-center w-12 h-12">
         <svg id="music-icon" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
             <line x1="22" y1="9" x2="16" y2="15"></line>
@@ -121,7 +114,7 @@
 
     <header class="relative w-full h-screen flex flex-col justify-center items-center overflow-hidden">
         <div class="absolute inset-0 z-0">
-            <img src="https://i.postimg.cc/zvRjpLQN/S-194240544.jpg" alt="Wedding Cover" class="w-full h-full object-cover object-center scale-105" />
+            <div class="w-full h-full bg-cover bg-center scale-105" style="background-image: url('https://i.postimg.cc/zvRjpLQN/S-194240544.jpg');"></div>
             <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-morandi-bg"></div>
         </div>
 
@@ -418,7 +411,6 @@
     </footer>
 
     <script>
-        // 1. 倒數計時腳本
         const weddingDate = new Date('2026-07-19T10:00:00').getTime();
         const timer = setInterval(function() {
             const now = new Date().getTime();
@@ -438,7 +430,6 @@
             document.getElementById('cd-seconds').innerText = String(seconds).padStart(2, '0');
         }, 1000);
 
-        // 2. 表單純 HTML 發送的 UI 切換邏輯
         function handleFormSubmit() {
             const btn = document.getElementById('submit-btn');
             btn.innerHTML = '傳送中... <span class="eng-font ml-2 text-xl">SENDING</span>';
@@ -447,7 +438,6 @@
             }, 50);
         }
 
-        // 監聽 iframe 載入
         document.getElementById('hidden_iframe').onload = function() {
             const btn = document.getElementById('submit-btn');
             if (btn.disabled) {
@@ -457,7 +447,6 @@
             }
         };
 
-        // 3. 背景音樂控制腳本
         const audio = document.getElementById('wedding-music');
         const musicBtn = document.getElementById('music-btn');
         const musicIcon = document.getElementById('music-icon');
